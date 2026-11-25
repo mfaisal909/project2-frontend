@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API = "/api/students";
 
-const emptyForm = { name: "", rollNo: "", email: "", semester: "", section: "" };
+const emptyForm = { name: "", fatherName: "", rollNo: "", email: "", semester: "", section: "" };
 
 export default function App() {
   const [form, setForm] = useState(emptyForm);
@@ -67,6 +67,7 @@ export default function App() {
     setEditingId(student._id);
     setForm({
       name: student.name,
+      fatherName: student.fatherName || "",
       rollNo: student.rollNo,
       email: student.email,
       semester: student.semester,
@@ -113,6 +114,14 @@ export default function App() {
                 value={form.name}
                 onChange={onChange("name")}
                 required
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Father Name</label>
+              <input
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                value={form.fatherName}
+                onChange={onChange("fatherName")}
               />
             </div>
             <div>
@@ -189,6 +198,7 @@ export default function App() {
                 <thead className="border-b border-slate-200 text-slate-600">
                   <tr>
                     <th className="px-3 py-2 font-medium">Name</th>
+                    <th className="px-3 py-2 font-medium">Father Name</th>
                     <th className="px-3 py-2 font-medium">Roll No</th>
                     <th className="px-3 py-2 font-medium">Email</th>
                     <th className="px-3 py-2 font-medium">Semester</th>
@@ -200,6 +210,7 @@ export default function App() {
                   {students.map((s) => (
                     <tr key={s._id} className="border-b border-slate-100 hover:bg-slate-50">
                       <td className="px-3 py-2">{s.name}</td>
+                      <td className="px-3 py-2">{s.fatherName || "-"}</td>
                       <td className="px-3 py-2">{s.rollNo}</td>
                       <td className="px-3 py-2">{s.email}</td>
                       <td className="px-3 py-2">{s.semester}</td>
